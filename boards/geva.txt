@@ -1,0 +1,7 @@
+BLOX 1
+6 5
+O X X X X O
+X S X X X X
+X X X X X X
+W X X X X X
+W W O O O G
