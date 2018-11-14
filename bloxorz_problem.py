@@ -1,5 +1,4 @@
 from searchProblem import Arc, Search_problem
-import searchGeneric
 import searchBFS
 import searchBiDir
 import BFSMultiPruneSearcher
