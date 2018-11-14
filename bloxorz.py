@@ -1,21 +1,6 @@
-##############################################################################
-#
-# File:         bloxorz.py
-# Date:         Wed 31 Aug 2011  11:40
-# Author:       Ken Basye
-# Description:  Bloxorz utilities
-#
-##############################################################################
+#Bloxorz
 
-
-"""
-Classes and functions for the Bloxorz project
-
-"""
 import io
-import cs210_utils
-import sys
-import types
 from searchProblem import Path
 
 
@@ -29,26 +14,6 @@ class Board(object):
         """
         Construction is done with a sequence of sequences; they must all be the
         same length.
-
-        >>> rows = (('S', 'X', 'O'), ('G', 'X', 'X'))
-        >>> b0 = Board(rows)
-        >>> b0.x_dim
-        3
-        >>> b0.y_dim
-        2
-        >>> b0.goal
-        (0, 1)
-        >>> b0.start
-        (0, 0)
-
-        Error checks:
-
-        >>> rows = (('S', 'X'), ('G', 'Q'))
-        >>> b1 = Board(rows)
-        Traceback (most recent call last):
-        ...
-        ValueError: expected tile in ('S', 'X', 'G', 'W', 'O'), got Q
-
         """
         valid_board_chars = ('S', 'X', 'G', 'W', 'O')
         y_dim = len(rows)
@@ -88,30 +53,6 @@ class Board(object):
         """
         Determine whether *pos* is a legal position on this board.
         A position is a pair of pairs.
-
-        >>> board_string = (
-        ... '''BLOX 1
-        ... 5 3
-        ... X X X O O
-        ... S X G X O
-        ... W W W W X
-        ... ''')
-
-        >>> fake_file = io.StringIO(board_string)
-        >>> board0 = Board.read_board(fake_file)
-        >>> sol0 = ('R', 'U', 'L', 'D', 'R', 'R', 'U', 'L', 'D', 'R')
-
-        >>> pos = (board0.start, board0.start)
-        >>> results = list()
-        >>> for action in sol0:   #doctest: +SKIP
-        ...     new_pos = next_position(pos, action)
-        ...     legal = board0.legal_position(new_pos)
-        ...     results.append(legal)
-        ...     pos = new_pos
-
-        >>> all(results)
-        True
-
         """
         # Unpacking like this will also check that pos has the right structure
         ((ax, ay), (bx, by)) = a_pos, b_pos = pos
@@ -129,26 +70,9 @@ class Board(object):
 
     @staticmethod
     def read_board(file):
-        r"""
+        """
         Read a board from a file.  The format is show below; whitespace is used to separate tokens.
         Note that the first line in the file must be a header line with a supported version number.
-
-        >>> board_string = (
-        ... '''BLOX 1
-        ... 5 3
-        ... X X X O O
-        ... S X G X O
-        ... W W W W X
-        ... ''')
-
-        >>> fake_file = io.StringIO(board_string)
-        >>> board0 = Board.read_board(fake_file)
-        >>> board0.goal
-        (2, 1)
-
-        >>> board0.start
-        (0, 1)
-
         """
 
         header_info = file.readline().split()
@@ -361,7 +285,3 @@ def next_position(pos, action, forward=True):
             newPosition = ((newx1, y1), (newx2, y2))
 
             return newPosition
-
-
-if __name__ == '__main__':
-    cs210_utils.cs210_mainstartup()
